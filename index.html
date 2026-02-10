@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ALEENAAAAAAAAAA!!!!! 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<style>
+/* BODY */
+body {
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  font-family: 'Shadows Into Light', cursive;
+  background-image: url('we.png.jpeg'); /* Corrected image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+/* SCENES */
+.scene { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:24px; }
+.scene.active { display:flex; }
+h1 { font-size:2rem; margin-bottom:12px; }
+p { font-size:1.1rem; line-height:1.6; opacity:0.95; }
+.tap { margin-top:20px; font-size:0.9rem; opacity:0.7; }
+
+/* BUTTONS */
+button {
+  padding:14px 28px;
+  margin:10px;
+  border-radius:40px;
+  border:none;
+  cursor:pointer;
+  background: rgba(255,255,255,0.2);
+  color:white;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s, background 0.2s;
+}
+button:hover { transform: scale(1.08); background: rgba(255,255,255,0.35); }
+
+/* SHAKE EFFECT */
+@keyframes shake { 0% { transform: translate(0px,0) rotate(0deg);} 25% { transform: translate(5px,-3px) rotate(5deg);} 50% { transform: translate(-5px,3px) rotate(-5deg);} 75% { transform: translate(4px,-2px) rotate(3deg);} 100% { transform: translate(0,0) rotate(0deg);} }
+
+/* ENVELOPE CARD */
+.envelope { position: relative; width: 280px; height: 180px; perspective: 1000px; margin-bottom: 20px; }
+.envelope .lid { position: absolute; width: 100%; height: 50%; background: white; top:0; left:0; transform-origin: top; border-top-left-radius: 12px; border-top-right-radius: 12px; transition: transform 1s ease-in-out; }
+.envelope.open .lid { transform: rotateX(-180deg); }
+.card { position: absolute; width: 100%; height: 100%; background: white; top:0; left:0; display:flex; flex-direction:column; justify-content:center; align-items:center; transform: translateY(20px); transition: transform 1s ease-in-out; }
+.envelope.open .card { transform: translateY(-60px); }
+.card h1 { font-size: 1.5rem; margin-bottom:8px; color:#ff4e8a; }
+.card p { font-size:1rem; color:#ff85a2; text-align:center; }
+
+/* POP-UP PORTRAIT */
+.popPortrait {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ff85a2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20px) scale(0);
+  transition: transform 1s ease-in-out;
+  z-index: 1000;
+  pointer-events: none;
+}
+.envelope.open .popPortrait { transform: translate(-50%, -120px) scale(1); }
+
+/* PARTICLES */
+.particle, .sparkle { position:absolute; pointer-events:none; opacity:0.9; }
+.particle { animation-name:fallTrail; animation-timing-function: linear; animation-iteration-count: 1; }
+@keyframes fallTrail { 0% { transform: translateY(0) rotate(0deg); opacity:0; } 10% { opacity:1; } 100% { transform: translateY(110vh) rotate(720deg); opacity:0; } }
+.sparkle { animation-name: floatSparkle; animation-timing-function: linear; animation-iteration-count: infinite; font-size:14px; }
+@keyframes floatSparkle { 0% { transform: translateY(0) scale(0.6); opacity:0.5; } 50% { transform: translateY(-80vh) scale(1); opacity:1; } 100% { transform: translateY(-160vh) scale(0.5); opacity:0; } }
+
+/* PHOTO GALLERY */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.gallery img {
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #ff85a2;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(255, 72, 128, 0.6);
+}
+</style>
+</head>
+<body>
+
+<audio id="music" loop>
+  <source src="music.mp3.mp3" type="audio/mpeg"> <!-- Corrected -->
+</audio>
+
+<div id="particleContainer"></div>
+
+<!-- Scene 1 -->
+<div id="scene1" class="scene active" onclick="nextScene(2)">
+  <h1>Hey Aleena 💖</h1>
+  <p>This isn’t just a page; it’s a piece of how I feel about you.
+It took me a week to finish this.
+Maybe it looks simple, but I made it with all of my heart.
+I put in all this effort because I love you so much.
+I love you more than anything Maaduuuu🥹💍🤍 ....</p>
+  <div class="tap">Tap anywhere ✨</div>
+</div>
+
+<!-- Scene 2 -->
+<div id="scene2" class="scene">
+  <div class="envelope" id="envelope">
+    <div class="lid"></div>
+    <div class="card">
+      <h1>Happy Valentine's Day 💖</h1>
+      <p>To my love Aleena,<br>Every day with you is magical ✨</p>
+    </div>
+    <img src="us.png" alt="Our Portrait" class="popPortrait">
+  </div>
+  <button id="yesBtn" onclick="choose()">Yes 💕</button>
+  <button id="noBtn" onclick="playfulNo()">No 🙄</button>
+  <p id="noMessage" style="margin-top:16px; font-size:1.1rem; opacity:0;"></p>
+</div>
+
+<!-- Scene 3 -->
+<div id="scene3" class="scene" onclick="nextScene(4)">
+  <div class="big">She said YES 💖</div>
+  <p>You chose us.</p>
+  <div class="tap">Tap anywhere</div>
+</div>
+
+<!-- Scene 4 -->
+<div id="scene4" class="scene final" onclick="nextScene(5)">
+  <h1>For You 💌</h1>
+  <p>Happy Valentine’s Day, my love 🥹💍🤍
+I don’t think you realize how much you’ve changed my life just by being in it. The way you smile, the way you understand me without words, the way you make even ordinary moments feel special, all of it means more to me than I can ever explain.
+With you, love feels easy and real. You make me feel safe, seen, and cared for in a way I never knew I needed. Every day I find new reasons to be grateful for you, and every day I’m reminded how lucky I am to love someone like you.
+No matter where life takes us, I promise to stand by you, to support you, to laugh with you, and to hold your hand through everything even in the good days, the hard days, and all the little moments in between.
+Today isn’t just about flowers or words. It’s about us. And if I had to choose again and again, I would still choose you always 🥹🤍
+Happy Valentine’s Day, my heart 💌</p>
+</div>
+
+<!-- Scene 5 - PHOTO GALLERY -->
+<div id="scene5" class="scene">
+  <h1>Our Memories 💖</h1>
+  <p>Some of my favorite moments with you...</p>
+  <div class="gallery">
+    <img src="we2.png.jpeg" alt="Photo 1">
+    <img src="we3.png.jpeg" alt="Photo 2">
+    <img src="we4.png.jpeg" alt="Photo 3">
+    <img src="we5.png.jpeg" alt="Photo 4">
+    <img src="we6.png.jpeg" alt="Photo 5">
+    <img src="we7.png.jpeg" alt="Photo 6">
+    <img src="we8.png.jpeg" alt="Photo 7">
+  </div>
+  <div class="tap">Tap anywhere ✨</div>
+  <p>Will You Be My Valentine Forever Aleena🥹💍🤍? 
+<a href="https://wa.me/qr/XWST22WF2JELD1" target="_blank">Click here to tell me how was this Valentine's Day gift for you!!!</a></p>
+</div>
+
+<script>
+const music=document.getElementById("music");
+const container=document.getElementById("particleContainer");
+const emojis=["💖","💗","💞","✨","💘","💝","💫","💓","💟"];
+const sparkles=["✨","💫","🌟","⭐"];
+
+function fadeInMusic(){ music.volume=0; music.play().catch(()=>{}); let v=0; const f=setInterval(()=>{v+=0.02; music.volume=v;if(v>=1)clearInterval(f);},100);}
+function vibrate(p){if(navigator.vibrate)navigator.vibrate(p);}
+function nextScene(n){
+    vibrate(40);
+    document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+    document.getElementById("scene"+n).classList.add('active');
+    if(n===2) fadeInMusic();
+}
+function choose(){const btn=document.getElementById("yesBtn");btn.classList.add("heartbeat");openEnvelopeHearts();vibrate([80,40,80]);burstParticles();setTimeout(()=>nextScene(3),1400);}
+function playfulNo(){const btn=document.getElementById("noBtn");const msg=document.getElementById("noMessage");vibrate([50,30,50]);msg.innerText="Nope… you already chose me 💕";msg.style.opacity=1;btn.style.animation="shake 0.3s";btn.addEventListener("animationend",()=>btn.style.animation="");const x=Math.random()*(window.innerWidth-btn.offsetWidth);const y=Math.random()*(window.innerHeight-btn.offsetHeight);btn.style.position="absolute";btn.style.left=x+"px";btn.style.top=y+"px";burstParticles();setTimeout(()=>nextScene(3),1200);}
+function burstParticles(){for(let i=0;i<30;i++){const e=document.createElement("div");e.className="particle";e.innerText=emojis[Math.floor(Math.random()*emojis.length)];e.style.left=(50+(Math.random()*40-20))+"vw";e.style.top="50vh";e.style.fontSize=(18+Math.random()*20)+"px";e.style.animationDuration=(1.5+Math.random()*1.5)+"s";container.appendChild(e);for(let j=0;j<3;j++){const s=document.createElement("div");s.className="sparkle";s.innerText=sparkles[Math.floor(Math.random()*sparkles.length)];s.style.left=e.style.left;s.style.top="50vh";s.style.fontSize=(6+Math.random()*12)+"px";s.style.animationDuration=(1+j*0.3)+"s";container.appendChild(s);setTimeout(()=>s.remove(),3000);}setTimeout(()=>e.remove(),3000);}}
+function openEnvelopeHearts(){const envelope=document.getElementById("envelope");envelope.classList.add("open");const heartCount=25;for(let i=0;i<heartCount;i++){const h=document.createElement("div");h.className="heart-burst";h.innerText="💖";const dx=(Math.random()-0.5)*200+"px";const dy=(Math.random()-0.5)*200+"px";h.style.setProperty('--dx',dx);h.style.setProperty('--dy',dy);h.style.left="50%";h.style.top="50%";envelope.appendChild(h);setTimeout(()=>h.remove(),1500);}}
+setInterval(()=>{const e=document.createElement("div");e.className="particle";e.innerText=emojis[Math.floor(Math.random()*emojis.length)];e.style.left=Math.random()*100+"vw";e.style.top="-50px";e.style.fontSize=14+Math.random()*24+"px";e.style.animationDuration=5+Math.random()*5+"s";container.appendChild(e);setTimeout(()=>e.remove(),10000);},250);
+setInterval(()=>{const s=document.createElement("div");s.className="sparkle";s.innerText=sparkles[Math.floor(Math.random()*sparkles.length)];s.style.left=Math.random()*100+"vw";s.style.top="100vh";s.style.fontSize=6+Math.random()*14+"px";s.style.animationDuration=6+Math.random()*6+"s";container.appendChild(s);setTimeout(()=>s.remove(),12000);},200);
+let lastTrail=0;function trailEffect(x,y){const now=Date.now();if(now-lastTrail<25)return;lastTrail=now;const t=document.createElement("div");t.className="trail";t.style.left=x-5+"px";t.style.top=y-5+"px";document.body.appendChild(t);setTimeout(()=>t.remove(),800);}
+document.addEventListener("mousemove",e=>trailEffect(e.clientX,e.clientY));
+document.addEventListener("touchmove",e=>{const touch=e.touches[0];trailEffect(touch.clientX,touch.clientY);});
+</script>
+
+</body>
+</html>
